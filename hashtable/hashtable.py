@@ -135,6 +135,11 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        val = self.storage[self.djb2(key)]
+        if val is None:
+            print('Warning key not found')
+        else:
+            print(val)
 
     def resize(self, new_capacity):
         """
