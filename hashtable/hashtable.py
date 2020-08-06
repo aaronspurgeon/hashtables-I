@@ -42,7 +42,8 @@ class HashTable:
 
     def __init__(self, capacity):
         # Your code here
-        self.capacity = [None] * 8
+        self.capacity = capacity
+        self.storage = [None] * capacity
 
     def get_num_slots(self):
         """
@@ -55,7 +56,7 @@ class HashTable:
         Implement this.
         """
         # Your code here
-        return len(self.capacity)
+        return len(self.storage)
 
     def get_load_factor(self):
         """
@@ -105,6 +106,11 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        entry = HashTableEntry(key, value)
+        # my_colors[my_hash("aqua", len(my_colors))] = "#00FFFF"
+        for i in self.storage:
+            if i is None:
+                self.storage[i] = entry
 
     def delete(self, key):
         """
