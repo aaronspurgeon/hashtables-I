@@ -7,8 +7,6 @@
 
 
 # my_colors = [None] * 5
-# my_colors[my_hash("aqua", len(my_colors))] = "#00FFFF"
-# print(my_colors[my_hash("aqua", len(my_colors))])
 
 
 class HashTableEntry:
@@ -121,6 +119,12 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        # print(my_colors[my_hash("aqua", len(my_colors))])
+        val = self.storage[self.djb2(key)]
+        if val is None:
+            print('Warning key not found')
+        else:
+            self.storage.pop(val)
 
     def get(self, key):
         """
