@@ -104,11 +104,12 @@ class HashTable:
         Implement this.
         """
         # Your code here
-        entry = HashTableEntry(key, value)
+        # entry = HashTableEntry(key, value)
         # my_colors[my_hash("aqua", len(my_colors))] = "#00FFFF"
-        for i in self.storage:
-            if i is None:
-                self.storage[i] = entry
+        # for i in self.storage:
+        #     if i is None:
+        #         self.storage[i] = entry
+        # if self.storage[entry] == None:
 
     def delete(self, key):
         """
@@ -119,7 +120,6 @@ class HashTable:
         Implement this.
         """
         # Your code here
-        # print(my_colors[my_hash("aqua", len(my_colors))])
         val = self.storage[self.djb2(key)]
         if val is None:
             print('Warning key not found')
