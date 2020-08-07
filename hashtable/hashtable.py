@@ -14,15 +14,15 @@ class HashTableEntry:
     Linked List hash table key/value pair
     """
 
-    # def __init__(self, key, value):
-    #     self.key = key
-    #     self.value = value
-    #     self.next = None
-
-    # implmentation using lists
     def __init__(self, key, value):
         self.key = key
         self.value = value
+        self.next = None
+
+    # implmentation using lists
+    # def __init__(self, key, value):
+    #     self.key = key
+    #     self.value = value
 
 
 # Hash table can't have fewer than this many slots
@@ -103,6 +103,14 @@ class HashTable:
 
         Implement this.
         """
+    # hash the key and get an index
+    # i = hash_index(key)
+    # find the start of the linked list using the index
+    # Search through linked list
+    # IF the key already exists in the linked list
+        # Replace the value
+    # Else
+        # Add new HashTable Entry to the head of linked list
         # Your code here
         # entry = HashTableEntry(key, value)
         # my_colors[my_hash("aqua", len(my_colors))] = "#00FFFF"
@@ -110,6 +118,21 @@ class HashTable:
         #     if i is None:
         #         self.storage[i] = entry
         # if self.storage[entry] == None:
+        index = self.hash_index(key)
+
+        if self.storage[index] != None:
+            while self.storage[index] is not None:
+                if self.storage[index].key == key:
+                    self.storage[index].value = value
+                    break
+                elif self.storage[index].next == None:
+                    self.storage[index].next = HashTableEntry(key, value)
+                    break
+                else:
+                    temp = self.storage[index]
+                    self.storage[index] = temp.next
+        else:
+            self.storage[index] = HashTableEntry(key, value)
 
     def delete(self, key):
         """
@@ -120,11 +143,12 @@ class HashTable:
         Implement this.
         """
         # Your code here
-        val = self.storage[self.djb2(key)]
-        if val is None:
-            print('Warning key not found')
+        index = self.hash_index(key)
+
+        if self.storage[index].key == key:
+            self.storage[index] = None
         else:
-            self.storage.pop(val)
+            print('Key is not found')
 
     def get(self, key):
         """
@@ -135,11 +159,14 @@ class HashTable:
         Implement this.
         """
         # Your code here
-        val = self.storage[self.djb2(key)]
-        if val is None:
-            print('Warning key not found')
-        else:
-            print(val)
+        index = self.hash_index(key)
+
+        while self.storage[index]:
+            if self.storage[index].key == key:
+                return self.storage[index].value
+            else:
+                self.storage[index] = self.storage[index].next
+        return None
 
     def resize(self, new_capacity):
         """
@@ -148,7 +175,19 @@ class HashTable:
 
         Implement this.
         """
+        # Make a new array thats DOUBLE the current size
+        # Go through each linked list in the array
+        # GO through each item and re-hash it
+        # Insert the items into their new locations
         # Your code here
+        new_arr = [None] * new_capacity
+        curr_arr = self.storage
+        self.storage = new_arr
+
+        for i in curr_arr:
+            while i:
+                self.put(i.key, i.value)
+                i = i.next
 
 
 if __name__ == "__main__":
