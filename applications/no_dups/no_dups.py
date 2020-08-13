@@ -1,6 +1,17 @@
+import re
+from functools import reduce
+
+
 def no_dups(s):
     # Your code here
+    new_arr = re.sub("[^\w]", " ",  s).split()
+    hash_table = {}
 
+    for i in new_arr:
+        if i not in hash_table:
+            hash_table[i] = 1
+
+    return ' '.join(list(hash_table))
 
 
 if __name__ == "__main__":
